@@ -5,10 +5,6 @@ import { VoterInteractionForms } from '../components/VoterInteractionForms';
 import { verifyVoter } from '../actions/voterToolActions';
 import { VoterToolState } from '../models/voterStore';
 
-// import { appendCar, createAppendCarRequestAction } from "../actions/carToolActions";
-// import { CarToolState } from "../models/carStore";
-// import { CarForm } from '../components/CarForm';
-
 export function VoterInteractionContainer() {
 
     const dispatch = useDispatch();
