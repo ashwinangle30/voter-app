@@ -1,5 +1,5 @@
 {
-  "voter": [
+  "voters": [
     {
       "id": 7,
       "firstName": "First",
@@ -11,7 +11,7 @@
       "birthDate": "06/26/2020"
     }
   ],
-  "election": [
+  "elections": [
     {
       "id": 7,
       "name": "Primary Election 2020",
