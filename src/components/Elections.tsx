@@ -1,4 +1,5 @@
 import React from "react";
+import "./Elections.css"
 import {
   useParams,
   useHistory,
@@ -6,6 +7,9 @@ import {
   Switch,
   useRouteMatch,
 } from "react-router-dom";
+import {ElectionsTable} from "./ElectionsTable";
+import {ElectionsForm} from "./ElectionsForm";
+import {ElectionsResult} from "./ElectionsResult";
 
 export const Elections = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,8 +21,10 @@ export const Elections = () => {
   console.log(routeMatch.path);
 
   return (
-    <div>
-      Elections
-    </div>
+    <>
+      <ElectionsTable />
+      <ElectionsForm />
+      <ElectionsResult />
+    </>
   );
 };
