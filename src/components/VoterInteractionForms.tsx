@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Election, QuestionResponse } from "../models/elections";
 
-export type IdentifyVoterProps = {    
+export type IdentifyVoterProps = {
     voterId: number,
     electionsForVoter: Election[],
     electionToVoteIn: Election,
@@ -25,16 +25,44 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
     };
 
     const checkBoxChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const copyOfCheckboxAnswers = [...checkBoxAnswers];
+        // if the voter has already checked this box, we have to remove his/her answer from the array; otherwise, it will be counted again every time he/she clicks this checkbox
+        const foundQuestionResponseIndex = copyOfCheckboxAnswers.findIndex(thisQuestionResponse => thisQuestionResponse.questionId === e.target.name);
+        if (foundQuestionResponseIndex !== undefined && foundQuestionResponseIndex !== -1) {
+             copyOfCheckboxAnswers.splice(foundQuestionResponseIndex, 1);
+        }
         setCheckBoxAnswers([
-            ...checkBoxAnswers,
+            ...copyOfCheckboxAnswers,
             {
-                questionId: e.target.name, 
-                questionAnswer: e.target.value
+                questionId: e.target.name,
+                questionAnswer: !!e.target.checked ? "yes" : "no",
             }
         ]);
     };
 
-    const resetForm = () => setForm({ inputVoterId: 0, });
+    const findCheckedValue = (questionId: number, responseArray: QuestionResponse[]) => {
+        const foundQuestionResponse = checkBoxAnswers.find(thisQuestionResponse => thisQuestionResponse.questionId === questionId.toString());
+
+        if (foundQuestionResponse !== undefined && foundQuestionResponse?.questionAnswer === "yes") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    const resetForm = () => setForm(
+        { inputVoterId: 0, }
+    );
+
+    const resetCheckBoxes = () => setCheckBoxAnswers(
+         [] 
+    );
+
+    const resetVoterInteraction = () => {
+        resetForm();
+        resetCheckBoxes();
+        props.onExitVoterInteraction();
+    }
 
     switch (props.voterInteractionStep) {
         case "AvailableElections":
@@ -55,8 +83,11 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
                             </tbody>
                         </table>
                     </div>
+                    <div>
+                        <button type="button" onClick={() => resetVoterInteraction()}>Back to main voting screen</button>
+                    </div>
                 </form>);
-                break;
+            break;
         case "VoteInElection":
             return (
                 <form>
@@ -70,47 +101,54 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
                                 </tr>
                             </thead>
                             <tbody>
-                                    {props.electionToVoteIn.questions.map((thisQuestion) =>
-                                        <tr key={thisQuestion.id}>
-                                            <td>{thisQuestion.question}</td>
-                                            <td><input type="checkbox" id={thisQuestion.id.toString()} name={thisQuestion.id.toString()} value="yes" onChange={checkBoxChange}/></td>
-                                        </tr>
-                                    )}
+                                {props.electionToVoteIn.questions.map((thisQuestion) =>
+                                    <tr key={thisQuestion.id}>
+                                        <td>{thisQuestion.question}</td>
+                                        <td><input type="checkbox"
+                                            id={thisQuestion.id.toString()}
+                                            name={thisQuestion.id.toString()}
+                                            checked={findCheckedValue(thisQuestion.id, checkBoxAnswers)}
+                                            onChange={checkBoxChange} /></td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                         <button type="button" onClick={() => props.onCastBallot(props.voterId, props.electionToVoteIn.id, checkBoxAnswers)}>Vote</button>
+                    </div>
+                    <div>
+                        <button type="button" onClick={() => resetVoterInteraction()}>Back to main voting screen</button>
                     </div>
                 </form>
             );
             break;
         case "VoteInElectionSuccessful":
             return (
-                <div>Ballot has been cast! <br/>
-                <button type="button" onClick={() => props.onExitVoterInteraction()}>Back to main voting screen</button>
+                <div>Ballot has been cast! <br />
+                    <button type="button" onClick={() => resetVoterInteraction()}>Back to main voting screen</button>
                 </div>
             );
             break;
         case "VoterIndentification":
         case "VoterValidationFailed":
         default:
-                return (
-                    <form>
-                        <div>{props.voterInteractionMessage}</div>
-                        <div>
-                            <label htmlFor="voter-id-input">Please enter your voter id</label>
-                            <input
-                                type="number"
-                                id="voter-id-input"
-                                name="inputVoterId"
-                                value={form.inputVoterId}
-                                onChange={change}
-                            />
-                        </div>
-                        <button type="button" onClick={() => props.onVerifyVoter(form.inputVoterId)}>
-                            Show Available Elections
+            return (
+                <form>
+                    <div>{props.voterInteractionMessage}</div>
+                    <div>
+                        <label htmlFor="voter-id-input">Please enter your voter id</label>
+                        <input
+                            type="number"
+                            id="voter-id-input"
+                            name="inputVoterId"
+                            value={form.inputVoterId}
+                            onChange={change}
+                        />
+                    </div>
+                    <button type="button" onClick={() => props.onVerifyVoter(form.inputVoterId)}>
+                        Show Available Elections
               </button>
-                    </form>
-                );
-                break;
+                </form>
+            );
+            break;
     }
 }

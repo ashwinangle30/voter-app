@@ -196,15 +196,12 @@ export const createCastBallotDoneAction: CreateCastBallotDoneAction = () => {
 
 
 export const verifyVoter = (voterId: number) => {
-    console.log("verify voter!" + voterId);
     return async (dispatch: Dispatch) => {
         dispatch(createVerifyVoterRequestAction(voterId));
         const response = await fetch('http://localhost:3060/voters/' + voterId);
         if (response.status === 404) {
-            console.log(" did not find voter!");
             return dispatch(createVerifyVoterFailedDoneAction(voterId));
         } else {
-            console.log("success!");
             const electionsResponse = await fetch('http://localhost:3060/elections');
             const elections:Election[] = await electionsResponse.json();
             const electionsForVoter = elections.filter(election => !election.voterIds.find(thisVoterId => thisVoterId === voterId));
@@ -214,19 +211,15 @@ export const verifyVoter = (voterId: number) => {
 };
 
 export const chooseElection = (electionId: number) => {
-    console.log("choose election!" + electionId);
     return async (dispatch: Dispatch) => {
         dispatch(createChooseElectionRequestAction(electionId));
         const electionResponse = await fetch('http://localhost:3060/elections/' + electionId);
-        console.log("success finding election for given id!");
         const chosenElection = await electionResponse.json();
         return dispatch(createChooseElectionDoneAction(chosenElection));
     };
 }
 
 export const castBallot = (voterId: number, electionId: number, ballotAnswers: QuestionResponse[]) => {
-    console.log("in cast ballot for election!" + ballotAnswers);
-    console.log(ballotAnswers);
     return async (dispatch: Dispatch) => {
         dispatch(createCastBallotRequestAction(ballotAnswers, electionId));
         // get election in order to get most recent counts
@@ -264,8 +257,6 @@ export const castBallot = (voterId: number, electionId: number, ballotAnswers: Q
             body: updatedElection,
         });
 
-        console.log("success updating election with given id and givenAnsers!");
-        // todo: filter elections to just those that the voter hasn't voted in yet
         return dispatch(createCastBallotDoneAction());
     };
 }
