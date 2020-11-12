@@ -1,6 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Election, QuestionResponse } from "../models/elections";
-import { Voter } from "../models/voters";
 
 export type IdentifyVoterProps = {    
     voterId: number,
@@ -11,6 +10,7 @@ export type IdentifyVoterProps = {
     onVerifyVoter: (voterId: number) => void;
     onChooseElection: (electionId: number) => void;
     onCastBallot: (voterId: number, electionId: number, ballotData: QuestionResponse[]) => void;
+    onExitVoterInteraction: () => void;
 }
 
 export function VoterInteractionForms(props: IdentifyVoterProps) {
@@ -85,7 +85,9 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
             break;
         case "VoteInElectionSuccessful":
             return (
-                <div>Ballot has been cast!</div>
+                <div>Ballot has been cast! <br/>
+                <button type="button" onClick={() => props.onExitVoterInteraction()}>Back to main voting screen</button>
+                </div>
             );
             break;
         case "VoterIndentification":

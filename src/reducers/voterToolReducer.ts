@@ -1,10 +1,12 @@
 import { Reducer, combineReducers } from 'redux';
-import { isCastBallotDoneAction, isChooseElectionDoneAction, isVerifyVoterDoneAction, isVerifyVoterFailedDoneAction, VoterActions } from '../actions/castBallotActions';
+import { isCastBallotDoneAction, isChooseElectionDoneAction, isExitVoterInteractionAction, isVerifyVoterDoneAction, isVerifyVoterFailedDoneAction, VoterActions } from '../actions/castBallotActions';
 import { Election } from '../models/elections';
 
 export const voterIdReducer: Reducer<number, VoterActions> = (voterId = -1, action) => {
     if (isVerifyVoterDoneAction(action)) {
         return action.payload.voterId;
+    } else if (isExitVoterInteractionAction(action)) {
+        return -1;
     } else {
         return voterId;
     }
@@ -13,6 +15,8 @@ export const voterIdReducer: Reducer<number, VoterActions> = (voterId = -1, acti
 export const electionReducer: Reducer<Election, VoterActions> = (electionToVoteIn = {} as Election, action) => {
     if (isChooseElectionDoneAction(action)) {
         return action.payload.election;
+    } else if (isExitVoterInteractionAction(action)) {
+        return {} as Election;
     } else {
         return electionToVoteIn;
     }
@@ -21,6 +25,8 @@ export const electionReducer: Reducer<Election, VoterActions> = (electionToVoteI
 export const voterMessageReducer: Reducer<string, VoterActions> = (voterMessage = "", action) => {
     if (isVerifyVoterFailedDoneAction(action)) {
         return "Could not find voter with id: " + action.payload.failedVoterId;
+    } else if (isExitVoterInteractionAction(action)) {
+        return "";
     } else {
         return voterMessage;
     }
@@ -35,7 +41,9 @@ export const voterInteractionStepReducer: Reducer<string, VoterActions> = (voter
         return "VoteInElection";
     } else if (isCastBallotDoneAction(action)) {
         return "VoteInElectionSuccessful";
-    }else {
+    } else if (isExitVoterInteractionAction(action)) {
+        return "VoterIndentification";
+    } else {
         return voterInteractionStep;
     }
 }
@@ -43,6 +51,8 @@ export const voterInteractionStepReducer: Reducer<string, VoterActions> = (voter
 export const electionsForVoterReducer: Reducer<Election[], VoterActions> = (electionsForVoter = [], action) => {
     if (isVerifyVoterDoneAction(action)) {
         return action.payload.elections;
+    } else if (isExitVoterInteractionAction(action)) {
+        return [];
     } else {
         return electionsForVoter;
     }

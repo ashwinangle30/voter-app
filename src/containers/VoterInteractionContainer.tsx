@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { VoterInteractionForms } from '../components/VoterInteractionForms';
-import { castBallot, chooseElection, verifyVoter } from '../actions/castBallotActions';
+import { castBallot, chooseElection, createExitVoterInteractionAction, verifyVoter } from '../actions/castBallotActions';
 import { VoterToolState } from '../models/voterStore';
 
 export function VoterInteractionContainer() {
@@ -25,6 +25,7 @@ export function VoterInteractionContainer() {
         onVerifyVoter: verifyVoter,
         onChooseElection: chooseElection,
         onCastBallot: castBallot,
+        onExitVoterInteraction: createExitVoterInteractionAction,
     },
     dispatch
     ), [dispatch]);

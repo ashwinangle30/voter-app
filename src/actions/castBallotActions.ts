@@ -12,6 +12,8 @@ export const CHOOSE_ELECTION_DONE_ACTION = "CHOOSE_ELECTION_DONE_ACTION";
 export const CAST_BALLOT_REQUEST_ACTION = "CAST_BALLOT_REQUEST_ACTION";
 export const CAST_BALLOT_DONE_ACTION = "CAST_BALLOT_DONE_ACTION";
 
+export const EXIT_VOTER_INTERACTION_ACTION = "EXIT_VOTER_INTERACTION_ACTION";
+
 //******************** */
 // create interface, and action type is going to extend action from line 1
 export interface VerifyVoterRequestAction extends Action<typeof VERIFY_VOTER_REQUEST_ACTION> {
@@ -268,4 +270,22 @@ export const castBallot = (voterId: number, electionId: number, ballotAnswers: Q
     };
 }
 
-export type VoterActions = VerifyVoterRequestAction | VerifyVoterDoneAction | VerifyVoterFailedDoneAction | ChooseElectionDoneAction | ChooseElectionRequestAction | CastBallotRequestAction | CastBallotDoneAction;
+/************** EXIT ACTION *******************************/
+export interface ExitVoterInteractionAction extends Action<typeof EXIT_VOTER_INTERACTION_ACTION> {
+}
+
+// type guard
+export function isExitVoterInteractionAction(action: AnyAction): action is ExitVoterInteractionAction {
+    return action.type === EXIT_VOTER_INTERACTION_ACTION;
+}
+
+export type CreateExitVoterInteractionAction = () => ExitVoterInteractionAction;
+
+export const createExitVoterInteractionAction: CreateExitVoterInteractionAction = () => {
+    return {
+        type: EXIT_VOTER_INTERACTION_ACTION
+    };
+};
+/*************************************************** */
+
+export type VoterActions = ExitVoterInteractionAction | VerifyVoterRequestAction | VerifyVoterDoneAction | VerifyVoterFailedDoneAction | ChooseElectionDoneAction | ChooseElectionRequestAction | CastBallotRequestAction | CastBallotDoneAction;
