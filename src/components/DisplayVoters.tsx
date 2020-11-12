@@ -1,25 +1,21 @@
 import React from "react";
-import { Voter } from "../models/voters";
+import { Voter, VotersSort } from "../models/voters";
 import { VoterViewRow } from "./VoterViewRow";
 
 export  type DisplayVoterProps = {
   voters: Voter[],
+  votersSort: VotersSort;
+  onSortVoters: (car: keyof Voter) => void;
 };
 
 export function DisplayVoters (props: DisplayVoterProps) {
-  let voters = [
-    {
-      "id": 7,
-      "firstName": "First",
-      "lastName": "Last",
-      "address": "123 Main Street",
-      "city": "Reno",
-      "email": "first.last@gmail.com",
-      "phone": "7755551212",
-      "birthDate": "06/26/2020"
-    }
-  ];
 
+  const sortArrow = (votersSort: VotersSort, sortCol: keyof Voter) => {
+    return (
+        votersSort.sortCol === sortCol && (votersSort.sortDir === "asc" ? "v" : "^")
+    );
+  };
+  
   return (
     <div>
       Display Voter
@@ -27,82 +23,58 @@ export function DisplayVoters (props: DisplayVoterProps) {
         <thead>
           <tr>
             <th className="col-header">
-              <button type="button" 
-             // onClick={() => props.onSortVoters("id")}
-              >
-                Id 
-                {/*sortArrow(props.voterSort, "id")*/}
+              <button type="button" onClick={() => props.onSortVoters("id")}>
+                Id {sortArrow(props.votersSort, "id")}
               </button>
             </th>
             <th className="col-header">
-              <button type="button" 
-             // onClick={() => props.onSortVoters("firstName")}
-              >
-                First Name 
-                {/*sortArrow(props.voterSort, "firstName")*/}
+              <button type="button" onClick={() => props.onSortVoters("firstName")}>
+                First Name {sortArrow(props.votersSort, "firstName")}
               </button>
             </th>
             <th className="col-header">
-              <button type="button" 
-             // onClick={() => props.onSortVoters("lastName")}
-              >
-                Last Name 
-                {/*sortArrow(props.voterSort, "lastName")*/}
+              <button type="button" onClick={() => props.onSortVoters("lastName")}>
+                Last Name {sortArrow(props.votersSort, "lastName")}
               </button>
             </th>
             <th className="col-header">
-              <button type="button" 
-             // onClick={() => props.onSortVoters("address")}
-              >
-                Address 
-                {/*sortArrow(props.voterSort, "address")*/}
+              <button type="button" onClick={() => props.onSortVoters("address")}>
+                Address {sortArrow(props.votersSort, "address")}
               </button>
             </th>
             <th className="col-header">
-              <button type="button" 
-             // onClick={() => props.onSortVoters("city")}
-              >
-                County/City 
-                {/*sortArrow(props.voterSort, "city")*/}
+              <button type="button" onClick={() => props.onSortVoters("city")}>
+                County/City {sortArrow(props.votersSort, "city")}
               </button>
             </th>
             <th className="col-header">
-              <button type="button" 
-             // onClick={() => props.onSortVoters("birthDate")}
-              >
-                Birth Date 
-                {/*{sortArrow(props.voterSort, "birthDate")}*/}
+              <button type="button" onClick={() => props.onSortVoters("birthDate")}>
+                Birth Date {sortArrow(props.votersSort, "birthDate")}
               </button>
             </th>
             <th className="col-header">
-              <button type="button" 
-             // onClick={() => props.onSortVoters("email")}
-              >
-                Email 
-                {/*{sortArrow(props.voterSort, "email")}*/}
+              <button type="button" onClick={() => props.onSortVoters("email")}>
+                Email {sortArrow(props.votersSort, "email")}
               </button>
             </th>
             <th className="col-header">
-              <button type="button" 
-             // onClick={() => props.onSortVoters("phone")}
-              >
-                Phone 
-                {/*{sortArrow(props.voterSort, "phone")}*/}
+              <button type="button" onClick={() => props.onSortVoters("phone")}>
+                Phone {sortArrow(props.votersSort, "phone")}
               </button>
             </th>
             <th className="col-header">Actions</th>
             <th className="col-header">
               <button type="button" 
-             // onClick={() => props.onSortVoters("selected")}
+                      // onClick={() => props.onSortVoters("selected")}
               >
-                Select 
-                {/*{sortArrow(props.voterSort, "selected")}*/}
+                Selected 
+                {/*{sortArrow(props.votersSort, "selected")}*/}
               </button>
             </th>
           </tr>
         </thead>
         <tbody>
-          {voters.map((voter) =>
+          {props.voters.map((voter) =>
             // voter.id === props.editVoterId ? (
             //   <VoterEditRow
             //     key={voter.id}

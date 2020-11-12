@@ -3,7 +3,7 @@ import { Switch, Route, Link } from "react-router-dom";
 
 import { Main } from "./components/Main";
 import { RegisterVoter } from "./components/RegisterVoter";
-import { DisplayVoters } from "./components/DisplayVoters";
+import { DisplayVotersContainer } from "./containers/DisplayVotersContainer";
 import { Elections } from "./components/Elections";
 import { CastBallotTool } from "./components/CastBallotTool";
 
@@ -36,7 +36,7 @@ function App() {
         <Switch>
           <Route path="/" exact component={Main} />
           <Route path="/registerVoter" component={RegisterVoter} />
-          <Route path="/displayVoters" component={DisplayVoters} />
+          <Route path="/displayVoters" component={DisplayVotersContainer} />
           <Route path="/elections" component={Elections} />
           <Route path="/vote" component={CastBallotTool} />
         </Switch>

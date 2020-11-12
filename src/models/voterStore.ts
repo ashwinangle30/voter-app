@@ -1,5 +1,5 @@
 import { Election } from "./elections";
-import { Voter } from "./voters";
+import { Voter, VotersSort } from "./voters";
 
 // feature state.  Each feature has its own subtree on the state.  This allows reducer and workflows to work independently
 export type VoterToolState = {
@@ -12,4 +12,8 @@ export type VoterToolState = {
         voterInteractionStep: string;
         voterInteractionMessage: string;
     },
+  manageVoters: {
+    voters: Voter[],
+    votersSort: VotersSort,
+  }
 };

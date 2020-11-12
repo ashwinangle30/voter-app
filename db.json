@@ -8,7 +8,17 @@
       "city": "Reno",
       "email": "first.last@gmail.com",
       "phone": "7755551212",
-      "birthDate": "06/26/2020"
+      "birthDate": "2020-06-26"
+    },
+    {
+      "id": 8,
+      "firstName": "A. First",
+      "lastName": "Name",
+      "address": "1122 Main Street",
+      "city": "Boise",
+      "email": "a.first.last@gmail.com",
+      "phone": "2085551212",
+      "birthDate": "1990-12-26"
     }
   ],
   "elections": [
