@@ -12,8 +12,9 @@ export function VoterInteractionContainer() {
     const stateProps = useSelector((state: VoterToolState) => {
         return {
             voterId: state.voterId,
-            voterMessage: state.voterMessage,
             electionsForVoter: state.electionsForVoter,
+            voterInteractionStep: state.voterInteractionStep,
+            voterInteractionMessage: state.voterInteractionMessage,
             electionToVoteIn: state.electionToVoteIn,
         };
     });

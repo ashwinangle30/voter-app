@@ -5,7 +5,7 @@ import { Main } from "./components/Main";
 import { RegisterVoter } from "./components/RegisterVoter";
 import { DisplayVoters } from "./components/DisplayVoters";
 import { Elections } from "./components/Elections";
-import { VoterTool } from "./components/VoterTool";
+import { CastBallotTool } from "./components/CastBallotTool";
 
 function App() {
   return (
@@ -38,7 +38,7 @@ function App() {
           <Route path="/registerVoter" component={RegisterVoter} />
           <Route path="/displayVoters" component={DisplayVoters} />
           <Route path="/elections" component={Elections} />
-          <Route path="/vote" component={VoterTool} />
+          <Route path="/vote" component={CastBallotTool} />
         </Switch>
       </main>
       <footer>
