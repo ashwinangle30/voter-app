@@ -1,5 +1,5 @@
 import { Reducer, combineReducers } from 'redux';
-import { isCastBallotDoneAction, isChooseElectionDoneAction, isVerifyVoterDoneAction, isVerifyVoterFailedDoneAction, VoterActions } from '../actions/voterToolActions';
+import { isCastBallotDoneAction, isChooseElectionDoneAction, isVerifyVoterDoneAction, isVerifyVoterFailedDoneAction, VoterActions } from '../actions/castBallotActions';
 import { Election } from '../models/elections';
 
 export const voterIdReducer: Reducer<number, VoterActions> = (voterId = -1, action) => {
@@ -9,6 +9,7 @@ export const voterIdReducer: Reducer<number, VoterActions> = (voterId = -1, acti
         return voterId;
     }
 }
+
 
 
 export const electionReducer: Reducer<Election, VoterActions> = (electionToVoteIn = {} as Election, action) => {
