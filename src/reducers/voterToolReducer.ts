@@ -10,8 +10,6 @@ export const voterIdReducer: Reducer<number, VoterActions> = (voterId = -1, acti
     }
 }
 
-
-
 export const electionReducer: Reducer<Election, VoterActions> = (electionToVoteIn = {} as Election, action) => {
     if (isChooseElectionDoneAction(action)) {
         return action.payload.election;

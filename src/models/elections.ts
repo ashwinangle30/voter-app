@@ -1,6 +1,7 @@
 export type Election = {
     id: number;
     name: string;
+    voterIds: number[];
     questions: Question[];
 }
 

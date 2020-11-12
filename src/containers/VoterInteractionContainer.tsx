@@ -4,8 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { VoterInteractionForms } from '../components/VoterInteractionForms';
 import { castBallot, chooseElection, verifyVoter } from '../actions/castBallotActions';
 import { VoterToolState } from '../models/voterStore';
-import { CastBallotTool } from '../components/CastBallotTool';
-
 
 export function VoterInteractionContainer() {
 

@@ -10,7 +10,7 @@ export type IdentifyVoterProps = {
     voterInteractionMessage: string,
     onVerifyVoter: (voterId: number) => void;
     onChooseElection: (electionId: number) => void;
-    onCastBallot: (electionId: number, ballotData: QuestionResponse[]) => void;
+    onCastBallot: (voterId: number, electionId: number, ballotData: QuestionResponse[]) => void;
 }
 
 export function VoterInteractionForms(props: IdentifyVoterProps) {
@@ -78,7 +78,7 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
                                     )}
                             </tbody>
                         </table>
-                        <button type="button" onClick={() => props.onCastBallot(props.electionToVoteIn.id, checkBoxAnswers)}>Vote</button>
+                        <button type="button" onClick={() => props.onCastBallot(props.voterId, props.electionToVoteIn.id, checkBoxAnswers)}>Vote</button>
                     </div>
                 </form>
             );

@@ -195,7 +195,7 @@ export const createCastBallotDoneAction: CreateCastBallotDoneAction = () => {
 
 export const verifyVoter = (voterId: number) => {
     console.log("verify voter!" + voterId);
-    return async (dispatch: Dispatch)  => {
+    return async (dispatch: Dispatch) => {
         dispatch(createVerifyVoterRequestAction(voterId));
         const response = await fetch('http://localhost:3060/voters/' + voterId);
         if (response.status === 404) {
@@ -204,39 +204,63 @@ export const verifyVoter = (voterId: number) => {
         } else {
             console.log("success!");
             const electionsResponse = await fetch('http://localhost:3060/elections');
-            const elections = await electionsResponse.json();
-            // todo: filter elections to just those that the voter hasn't voted in yet
-            return dispatch(createVerifyVoterDoneAction(voterId, elections));
+            const elections:Election[] = await electionsResponse.json();
+            const electionsForVoter = elections.filter(election => !election.voterIds.find(thisVoterId => thisVoterId === voterId));
+            return dispatch(createVerifyVoterDoneAction(voterId, electionsForVoter));
         }
     };
 };
 
 export const chooseElection = (electionId: number) => {
     console.log("choose election!" + electionId);
-    return async (dispatch: Dispatch)  => {
+    return async (dispatch: Dispatch) => {
         dispatch(createChooseElectionRequestAction(electionId));
         const electionResponse = await fetch('http://localhost:3060/elections/' + electionId);
-        // if (response.status === 404) {
-        //     console.log(" did not find election!");
-        //     return dispatch(createVerifyVoterFailedDoneAction(id));
-        // } else {
-            console.log("success finding election for given id!");
-            const chosenElection = await electionResponse.json();
-            // todo: filter elections to just those that the voter hasn't voted in yet
-            return dispatch(createChooseElectionDoneAction(chosenElection));
-        //}
+        console.log("success finding election for given id!");
+        const chosenElection = await electionResponse.json();
+        return dispatch(createChooseElectionDoneAction(chosenElection));
     };
 }
 
-export const castBallot = (electionId: number, ballotAnswers: QuestionResponse[]) => {
+export const castBallot = (voterId: number, electionId: number, ballotAnswers: QuestionResponse[]) => {
     console.log("in cast ballot for election!" + ballotAnswers);
     console.log(ballotAnswers);
-    return async (dispatch: Dispatch)  => {
+    return async (dispatch: Dispatch) => {
         dispatch(createCastBallotRequestAction(ballotAnswers, electionId));
         // get election in order to get most recent counts
         const electionResponse = await fetch('http://localhost:3060/elections/' + electionId);
+
+        const election: Election = await electionResponse.json();
+
         // put election with updated yes counts
 
+        // map question array for this election that was returned from the server to new array, with updated yes counts
+        let mappedQuestionsWithNewCounts = [...election.questions].map((thisQuestion: Question) => {
+            const foundInBallotAnswers = ballotAnswers.find(questionResponse => Number(questionResponse.questionId) === thisQuestion.id);
+
+            const updatedQuestion = { ...thisQuestion };
+            if (foundInBallotAnswers !== undefined && foundInBallotAnswers.questionAnswer === "yes") {
+                updatedQuestion.yesCount = thisQuestion.yesCount + 1;
+            }
+            return updatedQuestion;
+        }
+        );
+
+        // add voterId to those who voted in election
+        const voterIDCopy = [...election.voterIds];
+        voterIDCopy.push(voterId);
+        const updatedElection = JSON.stringify({
+            id: election.id,
+            name: election.name,
+            questions: mappedQuestionsWithNewCounts,
+            voterIds: voterIDCopy,
+        });
+
+        const res = await fetch("http://localhost:3060/elections/" + electionId, {
+            method: "PUT",
+            headers: { 'Content-Type': 'application/json' },
+            body: updatedElection,
+        });
 
         console.log("success updating election with given id and givenAnsers!");
         // todo: filter elections to just those that the voter hasn't voted in yet

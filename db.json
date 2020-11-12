@@ -16,21 +16,49 @@
       "id": 7,
       "name": "Primary Election 2020",
       "questions": [
-          {"question":"Do you like dogs?", "id":1, "yesCount":0},
-          {"question":"Do you like cats?", "id":2, "yesCount":0},
-          {"question":"Do you like mice?", "id":3, "yesCount":0}
-        ],
-       "voterIds": [7]
+        {
+          "question": "Do you like dogs?",
+          "id": 1,
+          "yesCount": 0
+        },
+        {
+          "question": "Do you like cats?",
+          "id": 2,
+          "yesCount": 0
+        },
+        {
+          "question": "Do you like mice?",
+          "id": 3,
+          "yesCount": 0
+        }
+      ],
+      "voterIds": [
+        7
+      ]
     },
     {
-        "id": 8,
-        "name": "Midterm Election 2020",
-        "questions": [
-            {"question":"Do you like bunnies?", "id":1, "yesCount":0},
-            {"question":"Do you like deer?", "id":2, "yesCount":0},
-            {"question":"Do you like mice?", "id":3, "yesCount":0}
-          ],
-          "voterIds": []
-      }
+      "id": 8,
+      "name": "Midterm Election 2020",
+      "questions": [
+        {
+          "question": "Do you like bunnies?",
+          "id": 1,
+          "yesCount": 1
+        },
+        {
+          "question": "Do you like deer?",
+          "id": 2,
+          "yesCount": 1
+        },
+        {
+          "question": "Do you like mice?",
+          "id": 3,
+          "yesCount": 0
+        }
+      ],
+      "voterIds": [
+        7
+      ]
+    }
   ]
 }
