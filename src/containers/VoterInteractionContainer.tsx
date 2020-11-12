@@ -2,8 +2,9 @@ import React, { useMemo } from 'react';
 import { bindActionCreators } from 'redux';
 import { useSelector, useDispatch } from 'react-redux';
 import { VoterInteractionForms } from '../components/VoterInteractionForms';
-import { verifyVoter } from '../actions/voterToolActions';
+import { castBallot, chooseElection, verifyVoter } from '../actions/voterToolActions';
 import { VoterToolState } from '../models/voterStore';
+import { CastBallotTool } from '../components/CastBallotTool';
 
 export function VoterInteractionContainer() {
 
@@ -23,6 +24,8 @@ export function VoterInteractionContainer() {
     const boundActionProps = useMemo(
         () => bindActionCreators({
         onVerifyVoter: verifyVoter,
+        onChooseElection: chooseElection,
+        onCastBallot: castBallot,
     },
     dispatch
     ), [dispatch]);

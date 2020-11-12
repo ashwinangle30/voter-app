@@ -1,6 +1,16 @@
 export type Election = {
     id: number;
     name: string;
-    // this needs to be modified to be the whole list of questions and to have the yes count
+    questions: Question[];
+}
+
+export type Question = {
+    id: number;
     question: string;
+    yesCount: number;
+}
+
+export type QuestionResponse = {
+    questionId: string;
+    questionAnswer: string;
 }

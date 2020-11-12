@@ -1,25 +1,37 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Election } from "../models/elections";
+import { Election, QuestionResponse } from "../models/elections";
 import { Voter } from "../models/voters";
 
 export type IdentifyVoterProps = {    
     voterId: number,
     electionsForVoter: Election[],
-    electionToVoteIn: number,
+    electionToVoteIn: Election,
     voterInteractionStep: string,
     voterInteractionMessage: string,
     onVerifyVoter: (voterId: number) => void;
+    onChooseElection: (electionId: number) => void;
+    onCastBallot: (electionId: number, ballotData: QuestionResponse[]) => void;
 }
 
 export function VoterInteractionForms(props: IdentifyVoterProps) {
     const [form, setForm] = useState({ inputVoterId: 0, });
+    const [checkBoxAnswers, setCheckBoxAnswers] = useState<QuestionResponse[]>([]);
 
     const change = (e: ChangeEvent<HTMLInputElement>) => {
         setForm({
             ...form,
-            [e.target.name]:
-                e.target.type === "number" ? Number(e.target.value) : e.target.value,
+            [e.target.name]: e.target.type === "number" ? Number(e.target.value) : e.target.value,
         });
+    };
+
+    const checkBoxChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setCheckBoxAnswers([
+            ...checkBoxAnswers,
+            {
+                questionId: e.target.name, 
+                questionAnswer: e.target.value
+            }
+        ]);
     };
 
     const resetForm = () => setForm({ inputVoterId: 0, });
@@ -35,9 +47,9 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
                         <table>
                             <tbody>
                                 {props.electionsForVoter.map((thisElection) =>
-                                    <tr key={thisElection.name}>
+                                    <tr key={thisElection.id}>
                                         <td>{thisElection.name}</td>
-                                        <td><button type="button" onClick={() => console.log(thisElection.id + " " + props.voterId)}>Vote</button></td>
+                                        <td><button type="button" onClick={() => props.onChooseElection(thisElection.id)}>Vote</button></td>
                                     </tr>
                                 )}
                             </tbody>
@@ -47,24 +59,33 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
                 break;
         case "VoteInElection":
             return (
-                <div>
-                    <h1>TO DO List of questions for Election Primary 2020</h1>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th> Question</th>
-                                <th> Yes? (blank means no)</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Do you like bunnies?</td><td>checkbox</td>
-                                <td>Do you like kitties?</td><td>checkbox</td>
-                                <td>Do you like doggies?</td><td>checkbox</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+                <form>
+                    <div>
+                        <h1>Welcome to voting!  Please vote in election {props.electionToVoteIn.name}</h1>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th> Question</th>
+                                    <th> Yes? (blank means no)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    {props.electionToVoteIn.questions.map((thisQuestion) =>
+                                        <tr key={thisQuestion.id}>
+                                            <td>{thisQuestion.question}</td>
+                                            <td><input type="checkbox" id={thisQuestion.id.toString()} name={thisQuestion.id.toString()} value="yes" onChange={checkBoxChange}/></td>
+                                        </tr>
+                                    )}
+                            </tbody>
+                        </table>
+                        <button type="button" onClick={() => props.onCastBallot(props.electionToVoteIn.id, checkBoxAnswers)}>Vote</button>
+                    </div>
+                </form>
+            );
+            break;
+        case "VoteInElectionSuccessful":
+            return (
+                <div>Ballot has been cast!</div>
             );
             break;
         case "VoterIndentification":

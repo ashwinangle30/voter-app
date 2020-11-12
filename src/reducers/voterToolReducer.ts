@@ -1,5 +1,5 @@
 import { Reducer, combineReducers } from 'redux';
-import { isVerifyVoterDoneAction, isVerifyVoterFailedDoneAction, VoterActions } from '../actions/voterToolActions';
+import { isCastBallotDoneAction, isChooseElectionDoneAction, isVerifyVoterDoneAction, isVerifyVoterFailedDoneAction, VoterActions } from '../actions/voterToolActions';
 import { Election } from '../models/elections';
 
 export const voterIdReducer: Reducer<number, VoterActions> = (voterId = -1, action) => {
@@ -11,14 +11,13 @@ export const voterIdReducer: Reducer<number, VoterActions> = (voterId = -1, acti
 }
 
 
-// export const electionIdReducer: Reducer<number, VoterActions> = (electionToVoteIn = -1, action) => {
-//     if (isChooseElectionToVoteInDoneAction(action)) {
-//         return action.payload.electionToVoteIn;
-//     } else {
-//         return electionToVoteIn;
-//     }
-// }
-
+export const electionReducer: Reducer<Election, VoterActions> = (electionToVoteIn = {} as Election, action) => {
+    if (isChooseElectionDoneAction(action)) {
+        return action.payload.election;
+    } else {
+        return electionToVoteIn;
+    }
+}
 
 export const voterMessageReducer: Reducer<string, VoterActions> = (voterMessage = "", action) => {
     if (isVerifyVoterFailedDoneAction(action)) {
@@ -33,7 +32,11 @@ export const voterInteractionStepReducer: Reducer<string, VoterActions> = (voter
         return "AvailableElections";
     } else if (isVerifyVoterFailedDoneAction(action)) {
         return "VoterValidationFailed";
-    } else {
+    } else if (isChooseElectionDoneAction(action)) {
+        return "VoteInElection";
+    } else if (isCastBallotDoneAction(action)) {
+        return "VoteInElectionSuccessful";
+    }else {
         return voterInteractionStep;
     }
 }
@@ -51,5 +54,5 @@ export const voterToolReducer = combineReducers({
     voterInteractionMessage: voterMessageReducer,
     voterInteractionStep: voterInteractionStepReducer,
     electionsForVoter: electionsForVoterReducer,
-//    electionToVoteIn: electionIdReducer,
+    electionToVoteIn: electionReducer,
 });
