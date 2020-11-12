@@ -38,7 +38,7 @@ export function VoterViewRow(props: VoterViewRowProps) {
           </button>
         </td>
         <td className="col-body">
-          <input type="checkbox" 
+          <input type="checkbox"
                  // onChange={selectVoter}
           />
         </td>
