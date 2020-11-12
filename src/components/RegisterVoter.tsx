@@ -1,24 +1,13 @@
 import React from "react";
-import {
-  useParams,
-  useHistory,
-  Route,
-  Switch,
-  useRouteMatch,
-} from "react-router-dom";
 
-export const RegisterVoter = () => {
-  const { id } = useParams<{ id: string }>();
+export type RegisterVoterProps = {
+};
 
-  const history = useHistory();
-
-  const routeMatch = useRouteMatch();
-
-  console.log(routeMatch.path);
-
+export function RegisterVoter (props: RegisterVoterProps) {
   return (
     <div>
       Register Voter
+
     </div>
   );
 };
