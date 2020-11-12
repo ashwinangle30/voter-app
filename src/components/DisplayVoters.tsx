@@ -64,12 +64,10 @@ export function DisplayVoters (props: DisplayVoterProps) {
             </th>
             <th className="col-header">Actions</th>
             <th className="col-header">
-              <button type="button" 
-                      // onClick={() => props.onSortVoters("selected")}
-              >
+              {/*<button type="button" onClick={() => props.onSortVoters("selected")}>*/}
                 Selected 
                 {/*{sortArrow(props.votersSort, "selected")}*/}
-              </button>
+              {/*</button>*/}
             </th>
           </tr>
         </thead>
@@ -92,6 +90,15 @@ export function DisplayVoters (props: DisplayVoterProps) {
             // )
           )}
         </tbody>
+        <tfoot>
+          <tr><th colSpan={10}>
+            <button type="button" style={{float:"right"}}
+                    // onClick={() => props.onSortVoters("selected")}
+            >
+              Delete Selected
+            </button>
+          </th></tr>
+        </tfoot>
       </table>
     </div>
   );
