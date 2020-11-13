@@ -1,24 +1,34 @@
 {
   "voters": [
     {
-      "id": 7,
       "firstName": "First",
       "lastName": "Last",
-      "address": "123 Main Street",
-      "city": "Reno",
-      "email": "first.last@gmail.com",
-      "phone": "7755551212",
-      "birthDate": "2020-06-26"
+      "address": "123 A St",
+      "city": "City",
+      "email": "email@example.com",
+      "phone": "8888675309",
+      "birthDate": "1900-01-01",
+      "id": 1
     },
     {
-      "id": 8,
-      "firstName": "A. First",
-      "lastName": "Name",
-      "address": "1122 Main Street",
-      "city": "Boise",
-      "email": "a.first.last@gmail.com",
-      "phone": "2085551212",
-      "birthDate": "1990-12-26"
+      "firstName": "First",
+      "lastName": "Last",
+      "address": "123 A St",
+      "city": "City",
+      "email": "email@example.com",
+      "phone": "8888675309",
+      "birthDate": "1900-01-01",
+      "id": 2
+    },
+    {
+      "firstName": "First",
+      "lastName": "Last",
+      "address": "123 A St",
+      "city": "City",
+      "email": "email@example.com",
+      "phone": "8888675309",
+      "birthDate": "1900-01-01",
+      "id": 3
     }
   ],
   "elections": [
