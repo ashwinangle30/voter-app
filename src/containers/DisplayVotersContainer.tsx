@@ -9,6 +9,7 @@ import {
   replaceVoter,
   createEditVoterAction,
   createCancelVoterAction,
+  removeVoter,
 } from "../actions/manageVotersActions";
 import { DisplayVoters } from "../components/DisplayVoters";
 
@@ -61,6 +62,7 @@ export function DisplayVotersContainer() {
           onSaveVoter: replaceVoter,
           onEditVoter: createEditVoterAction,
           onCancelVoter: createCancelVoterAction,
+          onDeleteVoter: removeVoter,
         },
         dispatch
       ),

@@ -8,6 +8,7 @@ export const SORT_VOTERS_ACTION = "SORT_VOTERS_ACTION";
 export const REPLACE_VOTER_REQUEST_ACTION = "REPLACE_VOTER_REQUEST";
 export const EDIT_VOTER_ACTION = "EDIT_VOTER_ACTION";
 export const CANCEL_VOTER_ACTION = "CANCEL_VOTER_ACTION";
+export const REMOVE_VOTER_REQUEST_ACTION = "REMOVE_VOTER_REQUEST_ACTION";
 
 
 export type RefreshVotersRequestAction = Action<
@@ -171,9 +172,50 @@ export const createCancelVoterAction: CreateCancelVoterAction = () => {
 };
 
 
+export interface RemoveVoterRequestAction
+    extends Action<typeof REMOVE_VOTER_REQUEST_ACTION> {
+  payload: {
+    voterId: number;
+  };
+}
+
+export function isRemoveVoterRequestAction(
+    action: AnyAction
+): action is RemoveVoterRequestAction {
+  return action.type === REMOVE_VOTER_REQUEST_ACTION;
+}
+
+export type CreateRemoveVoterRequestAction = (
+    voterId: number
+) => RemoveVoterRequestAction;
+
+export const createRemoveVoterRequestAction: CreateRemoveVoterRequestAction = (
+    voterId
+) => {
+  return {
+    type: REMOVE_VOTER_REQUEST_ACTION,
+    payload: {
+      voterId,
+    },
+  };
+};
+
+export const removeVoter = (voterId: number) => {
+  return (dispatch: Dispatch) => {
+    dispatch(createRemoveVoterRequestAction(voterId));
+    return fetch("http://localhost:3060/voters/" + encodeURIComponent(voterId), {
+      method: "DELETE",
+    }).then(() => {
+      refreshVoters()(dispatch);
+    });
+  };
+};
+
+
 export type ManageVotersActions = 
     | RefreshVotersDoneAction
     | SortVotersAction
     | ReplaceVoterRequestAction
     | EditVoterAction
-    | CancelVoterAction;
+    | CancelVoterAction
+    | RemoveVoterRequestAction;

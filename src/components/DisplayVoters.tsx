@@ -11,6 +11,7 @@ export  type DisplayVoterProps = {
   onEditVoter: (voterId: number) => void;
   onSaveVoter: (voter: Voter) => void;
   onCancelVoter: () => void;
+  onDeleteVoter: (voterId: number) => void;
 };
 
 export function DisplayVoters (props: DisplayVoterProps) {
@@ -70,7 +71,7 @@ export function DisplayVoters (props: DisplayVoterProps) {
             <th className="col-header">Actions</th>
             <th className="col-header">
               {/*<button type="button" onClick={() => props.onSortVoters("selected")}>*/}
-                Selected 
+                Select 
                 {/*{sortArrow(props.votersSort, "selected")}*/}
               {/*</button>*/}
             </th>
@@ -90,7 +91,7 @@ export function DisplayVoters (props: DisplayVoterProps) {
                 key={voter.id}
                 voter={voter}
                 onEditVoter={props.onEditVoter}
-                // onDeleteVoter={props.onDeleteVoter}
+                onDeleteVoter={props.onDeleteVoter}
               />
             )
           )}
