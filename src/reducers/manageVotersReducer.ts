@@ -1,14 +1,16 @@
 import { Reducer, combineReducers } from "redux";
 import { VotersSort } from "../models/voters";
 import {
-  VotersActions,
+  ManageVotersActions,
   isRefreshVotersDoneAction,
   isSortVotersAction,
-} from "../actions/votersActions";
+  isEditVoterAction,
+  isCancelVoterAction,
+} from "../actions/manageVotersActions";
 
 import { Voter } from "../models/voters";
 
-export const votersReducer: Reducer<Voter[], VotersActions> = (
+export const votersReducer: Reducer<Voter[], ManageVotersActions> = (
     voters = [],
     action
 ) => {
@@ -19,7 +21,7 @@ export const votersReducer: Reducer<Voter[], VotersActions> = (
 };
 
 
-export const votersSortReducer: Reducer<VotersSort, VotersActions> = (
+export const votersSortReducer: Reducer<VotersSort, ManageVotersActions> = (
     votersSort = { sortCol: "id", sortDir: "asc" },
     action
 ) => {
@@ -44,7 +46,24 @@ export const votersSortReducer: Reducer<VotersSort, VotersActions> = (
 };
 
 
+export const editVoterIdReducer: Reducer<number, ManageVotersActions> = (
+    editVoterId = -1,
+    action
+) => {
+  if (isEditVoterAction(action)) {
+    return action.payload.voterId;
+  }
+
+  if (isCancelVoterAction(action) || isRefreshVotersDoneAction(action)) {
+    return -1;
+  }
+
+  return editVoterId;
+};
+
+
 export const manageVotersReducer = combineReducers({
   voters: votersReducer,
   votersSort: votersSortReducer,
+  editVoterId: editVoterIdReducer,
 });

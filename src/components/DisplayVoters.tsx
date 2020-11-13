@@ -1,11 +1,17 @@
 import React from "react";
 import { Voter, VotersSort } from "../models/voters";
 import { VoterViewRow } from "./VoterViewRow";
+import { VoterEditRow } from "./VoterEditRow";
 
 export  type DisplayVoterProps = {
   voters: Voter[],
   votersSort: VotersSort;
-  onSortVoters: (car: keyof Voter) => void;
+  onSortVoters: (voter: keyof Voter) => void;
+  editVoterId: number;
+  onEditVoter: (voterId: number) => void;
+  onSaveVoter: (voter: Voter) => void;
+  onCancelVoter: () => void;
+  onDeleteVoter: (voterId: number) => void;
 };
 
 export function DisplayVoters (props: DisplayVoterProps) {
@@ -65,7 +71,7 @@ export function DisplayVoters (props: DisplayVoterProps) {
             <th className="col-header">Actions</th>
             <th className="col-header">
               {/*<button type="button" onClick={() => props.onSortVoters("selected")}>*/}
-                Selected 
+                Select 
                 {/*{sortArrow(props.votersSort, "selected")}*/}
               {/*</button>*/}
             </th>
@@ -73,21 +79,21 @@ export function DisplayVoters (props: DisplayVoterProps) {
         </thead>
         <tbody>
           {props.voters.map((voter) =>
-            // voter.id === props.editVoterId ? (
-            //   <VoterEditRow
-            //     key={voter.id}
-            //     voter={voter}
-            //     onSaveVoter={props.onSaveVoter}
-            //     onCancelVoter={props.onCancelVoter}
-            //   />
-            // ) : (
+            voter.id === props.editVoterId ? (
+              <VoterEditRow
+                key={voter.id}
+                voter={voter}
+                onSaveVoter={props.onSaveVoter}
+                onCancelVoter={props.onCancelVoter}
+              />
+            ) : (
               <VoterViewRow
                 key={voter.id}
                 voter={voter}
-                // onEditVoter={props.onEditVoter}
-                // onDeleteVoter={props.onDeleteVoter}
+                onEditVoter={props.onEditVoter}
+                onDeleteVoter={props.onDeleteVoter}
               />
-            // )
+            )
           )}
         </tbody>
         <tfoot>
@@ -102,4 +108,4 @@ export function DisplayVoters (props: DisplayVoterProps) {
       </table>
     </div>
   );
-};
+}

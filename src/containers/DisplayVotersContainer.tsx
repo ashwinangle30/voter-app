@@ -5,8 +5,12 @@ import { VoterToolState } from "../models/voterStore";
 
 import { 
   refreshVoters, 
-  createSortVotersAction, 
-} from "../actions/votersActions";
+  createSortVotersAction,
+  replaceVoter,
+  createEditVoterAction,
+  createCancelVoterAction,
+  removeVoter,
+} from "../actions/manageVotersActions";
 import { DisplayVoters } from "../components/DisplayVoters";
 
 export function DisplayVotersContainer() {
@@ -20,8 +24,8 @@ export function DisplayVotersContainer() {
   const stateProps = useSelector((state: VoterToolState) => {
     return {
       unsortedVoters: state.manageVoters.voters,
-      // editVoterId: state.editVoterId,
       votersSort: state.manageVoters.votersSort,
+      editVoterId: state.manageVoters.editVoterId,
     };
   });
 
@@ -55,6 +59,10 @@ export function DisplayVotersContainer() {
         {
           onRefreshVoters: refreshVoters,
           onSortVoters: createSortVotersAction,
+          onSaveVoter: replaceVoter,
+          onEditVoter: createEditVoterAction,
+          onCancelVoter: createCancelVoterAction,
+          onDeleteVoter: removeVoter,
         },
         dispatch
       ),
