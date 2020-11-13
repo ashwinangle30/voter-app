@@ -1,11 +1,13 @@
 import { Action, AnyAction, Dispatch } from 'redux';
-import { Election } from '../models/elections';
+import {Election, NewElection} from '../models/elections';
 
 export const REFRESH_ELECTIONS_REQUEST_ACTION = "REFRESH_ELECTIONS_REQUEST_ACTION";
 export const REFRESH_ELECTIONS_DONE_ACTION = "REFRESH_ELECTIONS_DONE_ACTION";
 
 export const RETRIEVE_ELECTION_REQUEST_ACTION = "RETRIEVE_ELECTION_REQUEST_ACTION";
 export const RETRIEVE_ELECTION_DONE_ACTION = "RETRIEVE_ELECTION_DONE_ACTION";
+
+export const ADD_ELECTION_REQUEST_ACTION = "ADD_ELECTION_REQUEST_ACTION";
 
 export type RefreshElectionsRequestAction = Action<typeof REFRESH_ELECTIONS_REQUEST_ACTION>;
 
@@ -93,6 +95,28 @@ export const createRetrieveElectionDoneAction: CreateRetrieveElectionDoneAction 
     };
 };
 
+export interface AddElectionAction extends Action<typeof ADD_ELECTION_REQUEST_ACTION> {
+    payload: {
+        value: NewElection
+    }
+}
+
+export function isAddElectionAction(action: AnyAction): action is AddElectionAction {
+    return action.type === ADD_ELECTION_REQUEST_ACTION;
+}
+
+export type CreateAddElectionAction = (value: NewElection) => AddElectionAction;
+
+export const createAddElectionAction: CreateAddElectionAction = (value) => {
+    return {
+        type: ADD_ELECTION_REQUEST_ACTION,
+        payload: {
+            value
+        }
+    }
+}
+
+
 ///////////////////////////////
 
 
@@ -116,4 +140,18 @@ export const retrieveElection = (electionId: number) => {
       };
 }
 
-export type ManageElectionActions = RefreshElectionsDoneAction | RetrieveElectionDoneAction;
+export const addElection = (newElection: NewElection) => {
+    return (dispatch: Dispatch) => {
+        dispatch(createAddElectionAction(newElection));
+        return fetch("http://localhost:3060/elections", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(newElection)
+        })
+            .then(() =>
+                refreshElections()(dispatch)
+            )
+    };
+}
+
+export type ManageElectionActions = RefreshElectionsDoneAction | RetrieveElectionDoneAction | AddElectionAction;

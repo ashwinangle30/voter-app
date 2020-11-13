@@ -4,15 +4,19 @@ import { Switch, Route, Link } from "react-router-dom";
 import { Main } from "./components/Main";
 import { RegisterVoterContainer } from "./containers/RegisterVoterContainer";
 import { DisplayVotersContainer } from "./containers/DisplayVotersContainer";
-import { ElectionsContainer } from "./containers/ElectionsContainer";
 import { CastBallotTool } from "./components/CastBallotTool";
+import {ElectionsTool} from "./components/ElectionsTool";
 
 
 function App() {
   return (
     <div>
       <header>
-        <h1>Blue Torch Voting App</h1>
+          <div className="header">
+              <h1>Blue Torch Voting App</h1>
+              <p><img src="doge.png" alt="doge happy coding!" height="50" width="60"/></p>
+              <h3>Lighting the void!</h3>
+          </div>
       </header>
       <nav>
             <Link to="/registerVoter">Register Voter</Link>
@@ -25,7 +29,7 @@ function App() {
           <Route path="/" exact component={Main} />
           <Route path="/registerVoter" component={RegisterVoterContainer} />
           <Route path="/displayVoters" component={DisplayVotersContainer} />
-          <Route path="/elections" component={ElectionsContainer} />
+          <Route path="/elections" component={ElectionsTool} />
           <Route path="/vote" component={CastBallotTool} />
         </Switch>
       </main>

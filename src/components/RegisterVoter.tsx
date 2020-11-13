@@ -46,80 +46,82 @@ export function RegisterVoter(props: RegisterVoterProps) {
 
   return (
       <form>
-        Register Voter
-        <div>
-          <label htmlFor="firstName-input">First name</label>
-          <input
-              type="text"
-              id="firstName-input"
-              name="firstName"
-              value={voterForm.firstName}
-              onChange={change}
-          />
-        </div>
-        <div>
-          <label htmlFor="lastName-input">Last name</label>
-          <input
-              type="text"
-              id="lastName-input"
-              name="lastName"
-              value={voterForm.lastName}
-              onChange={change}
-          />
-        </div>
-        <div>
-          <label htmlFor="address-input">Address</label>
-          <input
-              type="text"
-              id="address-input"
-              name="address"
-              value={voterForm.address}
-              onChange={change}
-          />
-        </div>
-        <div>
-          <label htmlFor="city-input">County/City</label>
-          <input
-              type="text"
-              id="city-input"
-              name="city"
-              value={voterForm.city}
-              onChange={change}
-          />
-        </div>
-        <div>
-          <label htmlFor="birthDate-input">Birth date (YYYY-MM-DD)</label>
-          <input
-              type="text"
-              id="birthDate-input"
-              name="birthDate"
-              value={voterForm.birthDate}
-              onChange={change}
-          />
-        </div>
-        <div>
-          <label htmlFor="email-input">Email</label>
-          <input
-              type="text"
-              id="email-input"
-              name="email"
-              value={voterForm.email}
-              onChange={change}
-          />
-        </div>
-        <div>
-          <label htmlFor="phone-input">Phone</label>
-          <input
-              type="number"
-              id="phone-input"
-              name="phone"
-              value={voterForm.phone}
-              onChange={change}
-          />
-        </div>
-        <button type="button" onClick={submitVoter}>
-          Complete Registration
-        </button>
+          <fieldset>
+              <legend>Register Voter</legend>
+              <div>
+                  <label htmlFor="firstName-input">First name</label>
+                  <input
+                      type="text"
+                      id="firstName-input"
+                      name="firstName"
+                      value={voterForm.firstName}
+                      onChange={change}
+                  />
+              </div>
+              <div>
+                  <label htmlFor="lastName-input">Last name</label>
+                  <input
+                      type="text"
+                      id="lastName-input"
+                      name="lastName"
+                      value={voterForm.lastName}
+                      onChange={change}
+                  />
+              </div>
+              <div>
+                  <label htmlFor="address-input">Address</label>
+                  <input
+                      type="text"
+                      id="address-input"
+                      name="address"
+                      value={voterForm.address}
+                      onChange={change}
+                  />
+              </div>
+              <div>
+                  <label htmlFor="city-input">County/City</label>
+                  <input
+                      type="text"
+                      id="city-input"
+                      name="city"
+                      value={voterForm.city}
+                      onChange={change}
+                  />
+              </div>
+              <div>
+                  <label htmlFor="birthDate-input">Birth date (YYYY-MM-DD)</label>
+                  <input
+                      type="text"
+                      id="birthDate-input"
+                      name="birthDate"
+                      value={voterForm.birthDate}
+                      onChange={change}
+                  />
+              </div>
+              <div>
+                  <label htmlFor="email-input">Email</label>
+                  <input
+                      type="text"
+                      id="email-input"
+                      name="email"
+                      value={voterForm.email}
+                      onChange={change}
+                  />
+              </div>
+              <div>
+                  <label htmlFor="phone-input">Phone</label>
+                  <input
+                      type="number"
+                      id="phone-input"
+                      name="phone"
+                      value={voterForm.phone}
+                      onChange={change}
+                  />
+              </div>
+              <button type="button" onClick={submitVoter}>
+                  Complete Registration
+              </button>
+          </fieldset>
       </form>
   );
 }

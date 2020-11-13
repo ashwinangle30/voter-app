@@ -18,9 +18,9 @@ export const ElectionsInteractionForms = (props: ElectionProps) => {
                     <table>
                         <thead>
                             <tr>
-                            <th>Questions</th>
-                            <th>Yes</th>
-                            <th>No</th>
+                                <th>Questions</th>
+                                <th>Yes</th>
+                                <th>No</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -45,9 +45,9 @@ export const ElectionsInteractionForms = (props: ElectionProps) => {
                     <table>
                         <thead>
                             <tr>
-                        <th>Name</th>
-                        <th>Actions</th>
-                        </tr>
+                                <th>Name</th>
+                                <th>Actions</th>
+                            </tr>
                         </thead>
                         <tbody>
                         {props.elections.map((thisElection) =>

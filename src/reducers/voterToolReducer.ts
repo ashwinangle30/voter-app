@@ -8,7 +8,5 @@ import { manageVotersReducer } from "./manageVotersReducer";
 export const voterToolReducer = combineReducers({
   castBallot: castBallotReducer,
   manageVoters: manageVotersReducer,
-
-  
   manageElections: manageElectionsReducer,
 });

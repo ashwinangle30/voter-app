@@ -33,7 +33,6 @@ export const ElectionsContainer = () => {
 
 
   return (
-  <>
       <ElectionsInteractionForms {...stateProps} {...boundActionProps} />
-  </>);
+  );
 };

@@ -19,6 +19,10 @@ h1 {
 
 h3 {
   color: blue;
+  justify-content: center;
+  flex-direction: column;
+  display: flex;
+  margin-left: 20px;
 }
 
 .errorMessage {
@@ -30,4 +34,12 @@ h3 {
   color: blue;
   font-weight: lighter;
   font-size: small;
+}
+
+.header {
+  display: flex;
+}
+
+p {
+  margin-left: 20px;
 }

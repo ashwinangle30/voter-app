@@ -1,13 +1,13 @@
 import React from "react";
 import { ElectionsContainer } from "../containers/ElectionsContainer";
+import {ElectionsFormContainer} from "../containers/ElectionsFormContainer";
 
-import { VoterInteractionContainer } from "../containers/VoterInteractionContainer";
-
-export function CastBallotTool() {
+export function ElectionsTool() {
 
   return (
     <>
       <ElectionsContainer />
+      <ElectionsFormContainer />
     </>
   );
 }
