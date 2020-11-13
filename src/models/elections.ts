@@ -8,10 +8,6 @@ export type NewElection = {
     questions: Question[];
 }
 
-export type Questions = {
-    questions: Question[];
-}
-
 export type Election = NewElection & Item;
 
 export type Question = {

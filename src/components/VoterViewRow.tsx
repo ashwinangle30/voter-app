@@ -2,7 +2,6 @@ import React from "react";
 
 import { Voter } from "../models/voters";
 
-// import "./VoterViewRow.css";
 
 export type VoterViewRowProps = {
   voter: Voter;
