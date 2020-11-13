@@ -47,8 +47,10 @@ export const ElectionsInteractionForms = (props: ElectionProps) => {
                 <div id="electionTable">
                     <table>
                         <thead>
+                            <tr>
                         <th>Name</th>
                         <th>Actions</th>
+                        </tr>
                         </thead>
                         <tbody>
                         {props.elections.map((thisElection) =>
