@@ -16,5 +16,8 @@ export type VoterToolState = {
     voters: Voter[],
     votersSort: VotersSort,
     editVoterId: number,
+  },
+  manageElections: {
+      elections: Election[],
   }
 };

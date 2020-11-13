@@ -1,6 +1,13 @@
 import React from "react";
+import { Election } from "../models/elections";
+import { electionsForVoterReducer } from "../reducers/castBallotReducer";
 
-export const ElectionsTable = () => {
+export type ElectionProps = {
+    elections: Election[];
+    onRefreshElections: () => void;
+}
+
+export const ElectionsTable = (props: ElectionProps) => {
 
     return (
         <div id="electionTable">
@@ -10,14 +17,12 @@ export const ElectionsTable = () => {
                 <th>Results</th>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>Primary Election 2020</td>
-                    <button type="button">View Results</button>
-                </tr>
-                <tr>
-                    <td>Midterm Election 2020</td>
-                    <button type="button">View Results</button>
-                </tr>
+                {props.elections.map((thisElection) =>
+                                    <tr key={thisElection.id}>
+                                        <td>{thisElection.name}</td>
+                                        <td><button type="button" onClick={() => console.log("Trying to see results for election " + thisElection.id)}>Results</button></td>
+                                    </tr>
+                                )}
                 </tbody>
             </table>
         </div>
