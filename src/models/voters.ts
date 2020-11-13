@@ -1,5 +1,8 @@
-export type Voter = {
-    id: number;
+export type Item = {
+  id: number;
+}
+
+export type NewVoter = {
     firstName: string;
     lastName: string;
     address: string;
@@ -8,6 +11,8 @@ export type Voter = {
     phone: string;
     birthDate: string;
 }
+
+export type Voter = NewVoter & Item;
 
 export type SortDir = 'asc' | 'desc';
 

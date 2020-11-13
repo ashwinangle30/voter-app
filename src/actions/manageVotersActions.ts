@@ -1,5 +1,5 @@
 import { Action, AnyAction, Dispatch } from "redux";
-import { Voter } from "../models/voters";
+import { Voter, NewVoter } from "../models/voters";
 
 
 export const REFRESH_VOTERS_REQUEST_ACTION = "REFRESH_VOTERS_REQUEST_ACTION";
@@ -9,6 +9,7 @@ export const REPLACE_VOTER_REQUEST_ACTION = "REPLACE_VOTER_REQUEST";
 export const EDIT_VOTER_ACTION = "EDIT_VOTER_ACTION";
 export const CANCEL_VOTER_ACTION = "CANCEL_VOTER_ACTION";
 export const REMOVE_VOTER_REQUEST_ACTION = "REMOVE_VOTER_REQUEST_ACTION";
+export const APPEND_VOTER_REQUEST_ACTION = "APPEND_VOTER_REQUEST_ACTION";
 
 
 export type RefreshVotersRequestAction = Action<
@@ -212,10 +213,53 @@ export const removeVoter = (voterId: number) => {
 };
 
 
+export interface AppendVoterRequestAction
+    extends Action<typeof APPEND_VOTER_REQUEST_ACTION> {
+  payload: {
+    voter: NewVoter;
+  };
+}
+
+export function isAppendVoterRequestAction(
+    action: AnyAction
+): action is AppendVoterRequestAction {
+  return action.type === APPEND_VOTER_REQUEST_ACTION;
+}
+
+export type CreateAppendVoterRequestAction = (
+    voter: NewVoter
+) => AppendVoterRequestAction;
+
+export const createAppendVoterRequestAction: CreateAppendVoterRequestAction = (
+    voter: NewVoter
+) => {
+  return {
+    type: APPEND_VOTER_REQUEST_ACTION,
+    payload: {
+      voter,
+    },
+  };
+};
+
+export const appendVoter = (voter: NewVoter) => {
+  return (dispatch: Dispatch) => {
+    dispatch(createAppendVoterRequestAction(voter));
+    return fetch("http://localhost:3060/voters", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(voter),
+    }).then(() => {
+      refreshVoters()(dispatch);
+    });
+  };
+};
+
+
 export type ManageVotersActions = 
     | RefreshVotersDoneAction
     | SortVotersAction
     | ReplaceVoterRequestAction
     | EditVoterAction
     | CancelVoterAction
-    | RemoveVoterRequestAction;
+    | RemoveVoterRequestAction
+    | AppendVoterRequestAction;
