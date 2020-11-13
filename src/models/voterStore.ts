@@ -19,5 +19,7 @@ export type VoterToolState = {
   },
   manageElections: {
       elections: Election[],
+      election: Election,
+      electionInteractionStep: string,
   }
 };
