@@ -69,7 +69,7 @@ export const VoterEditRow = (props: VoterEditRowProps) => {
         </td>
         <td>
           <input
-              type="number"
+              type="text"
               id="address-input"
               name="address"
               value={voterForm.address}
@@ -88,6 +88,15 @@ export const VoterEditRow = (props: VoterEditRowProps) => {
         <td>
           <input
               type="text"
+              id="birthDate-input"
+              name="birthDate"
+              value={voterForm.birthDate}
+              onChange={change}
+          />
+        </td>
+        <td>
+          <input
+              type="text"
               id="email-input"
               name="email"
               value={voterForm.email}
@@ -100,15 +109,6 @@ export const VoterEditRow = (props: VoterEditRowProps) => {
               id="phone-input"
               name="phone"
               value={voterForm.phone}
-              onChange={change}
-          />
-        </td>
-        <td>
-          <input
-              type="text"
-              id="birthDate-input"
-              name="birthDate"
-              value={voterForm.birthDate}
               onChange={change}
           />
         </td>

@@ -85,6 +85,16 @@ export function RegisterVoter(props: RegisterVoterProps) {
           />
         </div>
         <div>
+          <label htmlFor="birthDate-input">Birth date (YYYY-MM-DD)</label>
+          <input
+              type="text"
+              id="birthDate-input"
+              name="birthDate"
+              value={voterForm.birthDate}
+              onChange={change}
+          />
+        </div>
+        <div>
           <label htmlFor="email-input">Email</label>
           <input
               type="text"
@@ -101,16 +111,6 @@ export function RegisterVoter(props: RegisterVoterProps) {
               id="phone-input"
               name="phone"
               value={voterForm.phone}
-              onChange={change}
-          />
-        </div>
-        <div>
-          <label htmlFor="birthDate-input">Birth date (YYYY-MM-DD)</label>
-          <input
-              type="text"
-              id="birthDate-input"
-              name="birthDate"
-              value={voterForm.birthDate}
               onChange={change}
           />
         </div>
