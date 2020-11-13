@@ -1,4 +1,5 @@
 import React, { useState, ChangeEvent } from "react";
+import { useHistory } from "react-router-dom";
 
 import { NewVoter } from "../models/voters";
 
@@ -25,6 +26,7 @@ export function RegisterVoter(props: RegisterVoterProps) {
     });
   };
 
+  let history = useHistory();
   const submitVoter = () => {
     props.onSubmitVoter({
       ...voterForm,
@@ -39,6 +41,7 @@ export function RegisterVoter(props: RegisterVoterProps) {
       phone: "8888675309",
       birthDate: "1900-01-01",
     });
+    history.push("/");
   };
 
   return (
