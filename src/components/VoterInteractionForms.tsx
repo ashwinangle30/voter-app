@@ -26,6 +26,7 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
 
     const checkBoxChange = (e: ChangeEvent<HTMLInputElement>) => {
         const copyOfCheckboxAnswers = [...checkBoxAnswers];
+
         // if the voter has already checked this box, we have to remove his/her answer from the array; otherwise, it will be counted again every time he/she clicks this checkbox
         const foundQuestionResponseIndex = copyOfCheckboxAnswers.findIndex(thisQuestionResponse => thisQuestionResponse.questionId === e.target.name);
         if (foundQuestionResponseIndex !== undefined && foundQuestionResponseIndex !== -1) {
@@ -66,12 +67,11 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
 
     switch (props.voterInteractionStep) {
         case "AvailableElections":
-            console.log("Found voter, and voter has elections!");
-            console.log(props.electionsForVoter);
             return (
                 <form>
                     <div>
-                        <h1>List of elections for voter {props.voterId}</h1>
+                        <h3>List of elections for voter {props.voterId}</h3>
+                        { props.electionsForVoter.length === 0 ? "You have voted in all available elections" : ""}
                         <table>
                             <tbody>
                                 {props.electionsForVoter.map((thisElection) =>
@@ -92,7 +92,7 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
             return (
                 <form>
                     <div>
-                        <h1>Welcome to voting!  Please vote in election {props.electionToVoteIn.name}</h1>
+                        <h3>Welcome to voting!  Please vote in election {props.electionToVoteIn.name}</h3>
                         <table>
                             <thead>
                                 <tr>
@@ -133,7 +133,7 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
         default:
             return (
                 <form>
-                    <div>{props.voterInteractionMessage}</div>
+                    <div className="errorMessage">{props.voterInteractionMessage}</div>
                     <div>
                         <label htmlFor="voter-id-input">Please enter your voter id</label>
                         <input

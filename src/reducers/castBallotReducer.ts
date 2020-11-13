@@ -24,7 +24,7 @@ export const electionReducer: Reducer<Election, VoterActions> = (electionToVoteI
 
 export const voterMessageReducer: Reducer<string, VoterActions> = (voterMessage = "", action) => {
     if (isVerifyVoterFailedDoneAction(action)) {
-        return "Could not find voter with id: " + action.payload.failedVoterId;
+        return "Could not find voter with id " + action.payload.failedVoterId;
     } else if (isExitVoterInteractionAction(action)) {
         return "";
     } else {

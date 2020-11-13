@@ -7,6 +7,7 @@ import { DisplayVotersContainer } from "./containers/DisplayVotersContainer";
 import { Elections } from "./components/Elections";
 import { CastBallotTool } from "./components/CastBallotTool";
 
+
 function App() {
   return (
     <div>
@@ -14,23 +15,10 @@ function App() {
         <h1>Blue Torch Voting App</h1>
       </header>
       <nav>
-        <ul>
-          <li>
-            <Link to="/">Main</Link>
-          </li>
-          <li>
             <Link to="/registerVoter">Register Voter</Link>
-          </li>
-          <li>
             <Link to="/displayVoters">Display Voters</Link>
-          </li>
-          <li>
             <Link to="/elections">Elections</Link>
-          </li>
-          <li>
             <Link to="/vote">Vote</Link>
-          </li>
-        </ul>
       </nav>
       <main>
         <Switch>
@@ -41,8 +29,9 @@ function App() {
           <Route path="/vote" component={CastBallotTool} />
         </Switch>
       </main>
+      <br />
       <footer>
-        <small>Blue Torch</small>
+        <div className="footer">Blue Torch 2020</div>
       </footer>
     </div>
   );

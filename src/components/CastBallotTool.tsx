@@ -7,7 +7,6 @@ export function CastBallotTool() {
 
   return (
     <>
-      <ToolHeader headerText="Voter Tool" />
       <VoterInteractionContainer />
     </>
   );
