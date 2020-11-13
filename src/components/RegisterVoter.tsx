@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent } from "react";
 import { useHistory } from "react-router-dom";
 
 import { NewVoter } from "../models/voters";
+import './RegisterVoter.css'
 
 export type RegisterVoterProps = {
   onSubmitVoter: (newVoter: NewVoter) => void;
