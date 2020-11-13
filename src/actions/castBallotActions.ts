@@ -1,6 +1,5 @@
 import { Action, AnyAction, Dispatch } from 'redux';
 import { Election, Question, QuestionResponse } from '../models/elections';
-import { Voter } from '../models/voters';
 
 export const VERIFY_VOTER_REQUEST_ACTION = "VERIFY_VOTER_REQUEST_ACTION";
 export const VERIFY_VOTER_DONE_ACTION = "VERIFY_VOTER_DONE_ACTION";
@@ -251,7 +250,7 @@ export const castBallot = (voterId: number, electionId: number, ballotAnswers: Q
             voterIds: voterIDCopy,
         });
 
-        const res = await fetch("http://localhost:3060/elections/" + electionId, {
+        await fetch("http://localhost:3060/elections/" + electionId, {
             method: "PUT",
             headers: { 'Content-Type': 'application/json' },
             body: updatedElection,

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Election, QuestionResponse } from "../models/elections";
 
 export type IdentifyVoterProps = {
@@ -87,7 +87,6 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
                         <button type="button" onClick={() => resetVoterInteraction()}>Back to main voting screen</button>
                     </div>
                 </form>);
-            break;
         case "VoteInElection":
             return (
                 <form>
@@ -120,14 +119,12 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
                     </div>
                 </form>
             );
-            break;
         case "VoteInElectionSuccessful":
             return (
                 <div>Ballot has been cast! <br />
                     <button type="button" onClick={() => resetVoterInteraction()}>Back to main voting screen</button>
                 </div>
             );
-            break;
         case "VoterIndentification":
         case "VoterValidationFailed":
         default:
@@ -149,6 +146,5 @@ export function VoterInteractionForms(props: IdentifyVoterProps) {
               </button>
                 </form>
             );
-            break;
     }
 }

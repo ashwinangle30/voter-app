@@ -1,6 +1,5 @@
-import React, { ChangeEvent, useState } from "react";
+import React from "react";
 import { Election, Question } from "../models/elections";
-import { electionsForVoterReducer } from "../reducers/castBallotReducer";
 
 export type ElectionProps = {
     elections: Election[];
@@ -14,8 +13,6 @@ export const ElectionsInteractionForms = (props: ElectionProps) => {
 
     switch (props.electionInteractionStep) {
         case "ViewElectionResults":
-            console.log("in ViewElectionResults");
-            console.log(props.election);   
         return (
                 <div>
                     <table>
