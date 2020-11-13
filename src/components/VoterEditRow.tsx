@@ -69,7 +69,7 @@ export const VoterEditRow = (props: VoterEditRowProps) => {
         </td>
         <td>
           <input
-              type="number"
+              type="text"
               id="address-input"
               name="address"
               value={voterForm.address}
