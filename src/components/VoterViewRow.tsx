@@ -8,6 +8,8 @@ export type VoterViewRowProps = {
   voter: Voter;
   onEditVoter: (voterId: number) => void;
   onDeleteVoter: (voterId: number) => void;
+  onSelectVoter: (voterId: number) => void;
+  isSelected: boolean;
 };
 
 export function VoterViewRow(props: VoterViewRowProps) {
@@ -35,8 +37,8 @@ export function VoterViewRow(props: VoterViewRowProps) {
         </td>
         <td className="col-body">
           <input type="checkbox"
-                 // onChange={selectVoter}
-          />
+                 checked={props.isSelected}
+                 onChange={() => props.onSelectVoter(props.voter.id)}/>
         </td>
       </tr>
   );

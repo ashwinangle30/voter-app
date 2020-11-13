@@ -4,22 +4,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { VoterToolState } from "../models/voterStore";
 
 import { 
-  refreshVoters, 
-  createSortVotersAction,
-  replaceVoter,
-  createEditVoterAction,
-  createCancelVoterAction,
-  removeVoter,
+    refreshVoters, 
+    createSortVotersAction,
+    replaceVoter,
+    createEditVoterAction,
+    createCancelVoterAction,
+    removeVoter,
+    removeVoters,
 } from "../actions/manageVotersActions";
 import { DisplayVoters } from "../components/DisplayVoters";
 
 export function DisplayVotersContainer() {
-  
-  // const stateProps = useSelector((state: VotersState) => {
-  //   return {
-  //     voters: state.voters,
-  //   };
-  // }) as { voters: Voter[]; };
   
   const stateProps = useSelector((state: VoterToolState) => {
     return {
@@ -63,6 +58,7 @@ export function DisplayVotersContainer() {
           onEditVoter: createEditVoterAction,
           onCancelVoter: createCancelVoterAction,
           onDeleteVoter: removeVoter,
+          onDeleteSelectedVoters: removeVoters,
         },
         dispatch
       ),

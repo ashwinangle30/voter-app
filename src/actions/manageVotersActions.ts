@@ -9,6 +9,7 @@ export const REPLACE_VOTER_REQUEST_ACTION = "REPLACE_VOTER_REQUEST";
 export const EDIT_VOTER_ACTION = "EDIT_VOTER_ACTION";
 export const CANCEL_VOTER_ACTION = "CANCEL_VOTER_ACTION";
 export const REMOVE_VOTER_REQUEST_ACTION = "REMOVE_VOTER_REQUEST_ACTION";
+export const REMOVE_VOTERS_REQUEST_ACTION = "REMOVE_VOTERS_REQUEST_ACTION";
 export const APPEND_VOTER_REQUEST_ACTION = "APPEND_VOTER_REQUEST_ACTION";
 
 
@@ -213,6 +214,51 @@ export const removeVoter = (voterId: number) => {
 };
 
 
+export interface RemoveVotersRequestAction
+    extends Action<typeof REMOVE_VOTERS_REQUEST_ACTION> {
+  payload: {
+    voterIds: number[];
+  };
+}
+
+export function isRemoveVotersRequestAction(
+    action: AnyAction
+): action is RemoveVotersRequestAction {
+  return action.type === REMOVE_VOTERS_REQUEST_ACTION;
+}
+
+export type CreateRemoveVotersRequestAction = (
+    voterIds: number[]
+) => RemoveVotersRequestAction;
+
+export const createRemoveVotersRequestAction: CreateRemoveVotersRequestAction = (
+    voterIds
+) => {
+  return {
+    type: REMOVE_VOTERS_REQUEST_ACTION,
+    payload: {
+      voterIds,
+    },
+  };
+};
+
+export const removeVoters = (voterIds: number[]) => {
+  console.log('Deleting: ', ...voterIds);
+  return async (dispatch: Dispatch) => {
+    dispatch(createRemoveVotersRequestAction(voterIds));
+    
+    await Promise.all(voterIds.map(
+        (id: number) => fetch("http://localhost:3060/voters/" + encodeURIComponent(id), {
+          method: "DELETE",
+        })
+    ))
+      .then(() => {
+        refreshVoters()(dispatch);
+      });
+  };
+};
+
+
 export interface AppendVoterRequestAction
     extends Action<typeof APPEND_VOTER_REQUEST_ACTION> {
   payload: {
@@ -255,6 +301,7 @@ export const appendVoter = (voter: NewVoter) => {
 };
 
 
+
 export type ManageVotersActions = 
     | RefreshVotersDoneAction
     | SortVotersAction
@@ -262,4 +309,5 @@ export type ManageVotersActions =
     | EditVoterAction
     | CancelVoterAction
     | RemoveVoterRequestAction
-    | AppendVoterRequestAction;
+    | AppendVoterRequestAction
+    | RemoveVotersRequestAction;

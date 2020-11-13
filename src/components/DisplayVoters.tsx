@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState} from "react";
 import { Voter, VotersSort } from "../models/voters";
 import { VoterViewRow } from "./VoterViewRow";
 import { VoterEditRow } from "./VoterEditRow";
@@ -12,6 +12,7 @@ export  type DisplayVoterProps = {
   onSaveVoter: (voter: Voter) => void;
   onCancelVoter: () => void;
   onDeleteVoter: (voterId: number) => void;
+  onDeleteSelectedVoters: (voterId: number[]) => void;
 };
 
 export function DisplayVoters (props: DisplayVoterProps) {
@@ -22,6 +23,31 @@ export function DisplayVoters (props: DisplayVoterProps) {
     );
   };
   
+  const [selectedVoters, setSelectedVoters] = useState([] as number[]);
+
+  const toggleSelectVoter = (voterId: number) => {
+    let index = selectedVoters.findIndex(id => voterId === id);
+    if (index !== -1) {
+      let selected = [...selectedVoters];
+      selected.splice(index, 1)
+      setSelectedVoters(
+          selected
+      );
+    } else {
+      setSelectedVoters([
+          ...selectedVoters,
+          voterId
+      ]);
+    }
+    console.log(selectedVoters);
+  };
+  
+  const deleteSelectedVoters = () => {
+    props.onDeleteSelectedVoters([...selectedVoters]);
+    setSelectedVoters([]);
+  }
+
+
   return (
     <div>
       Display Voter
@@ -85,6 +111,8 @@ export function DisplayVoters (props: DisplayVoterProps) {
                 voter={voter}
                 onSaveVoter={props.onSaveVoter}
                 onCancelVoter={props.onCancelVoter}
+                onSelectVoter={toggleSelectVoter}
+                isSelected={selectedVoters.findIndex(id => voter.id === id) !== -1}
               />
             ) : (
               <VoterViewRow
@@ -92,6 +120,8 @@ export function DisplayVoters (props: DisplayVoterProps) {
                 voter={voter}
                 onEditVoter={props.onEditVoter}
                 onDeleteVoter={props.onDeleteVoter}
+                onSelectVoter={toggleSelectVoter}
+                isSelected={selectedVoters.findIndex(id => voter.id === id) !== -1}
               />
             )
           )}
@@ -99,7 +129,7 @@ export function DisplayVoters (props: DisplayVoterProps) {
         <tfoot>
           <tr><th colSpan={10}>
             <button type="button" style={{float:"right"}}
-                    // onClick={() => props.onSortVoters("selected")}
+                    onClick={deleteSelectedVoters}
             >
               Delete Selected
             </button>

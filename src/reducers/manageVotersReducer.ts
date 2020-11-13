@@ -1,11 +1,11 @@
 import { Reducer, combineReducers } from "redux";
 import { VotersSort } from "../models/voters";
 import {
-  ManageVotersActions,
-  isRefreshVotersDoneAction,
-  isSortVotersAction,
-  isEditVoterAction,
-  isCancelVoterAction,
+    ManageVotersActions,
+    isRefreshVotersDoneAction,
+    isSortVotersAction,
+    isEditVoterAction,
+    isCancelVoterAction,
 } from "../actions/manageVotersActions";
 
 import { Voter } from "../models/voters";

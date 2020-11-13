@@ -6,6 +6,8 @@ export type VoterEditRowProps = {
   voter: Voter;
   onSaveVoter: (voter: Voter) => void;
   onCancelVoter: () => void;
+  onSelectVoter: (voterId: number) => void;
+  isSelected: boolean;
 };
 
 export type VoterForm = {
@@ -119,9 +121,9 @@ export const VoterEditRow = (props: VoterEditRowProps) => {
           </button>
         </td>
         <td>
-          <input type="checkbox"
-              // onChange={selectVoter}
-          />
+          <input type="checkbox" 
+                 checked={props.isSelected}
+                 onChange={() => props.onSelectVoter(props.voter.id)}/>
         </td>
       </tr>
   );
